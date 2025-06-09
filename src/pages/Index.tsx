@@ -58,13 +58,11 @@ const Index = () => {
     setIsSubmitting(true);
     
     try {
-      // In a real implementation, this would save to Supabase and trigger email
       console.log("Quote request submitted:", {
         ...formData,
         budget: budgetOverride || formData.budget,
       });
       
-      // Simulate API call
       await new Promise(resolve => setTimeout(resolve, 1000));
       
       navigate("/thanks");
@@ -82,8 +80,8 @@ const Index = () => {
   const actualBudget = budgetOverride || formData.budget;
 
   return (
-    <div className="min-h-screen bg-white">
-      <div className="container mx-auto px-4 py-8 max-w-4xl">
+    <div className="min-h-screen" style={{ backgroundColor: '#ffffff' }}>
+      <div className="container mx-auto px-4 py-8 max-w-3xl">
         {/* Header */}
         <div className="text-center mb-12">
           <div className="w-24 h-24 bg-primary rounded-2xl flex items-center justify-center mx-auto mb-6">
@@ -97,44 +95,15 @@ const Index = () => {
           </p>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-8">
-          <div className="ring-2 ring-[#0066ff] mx-auto max-w-2xl p-6 bg-white rounded-2xl">
-            {/* Basic Info */}
-            <div className="grid md:grid-cols-2 gap-6 mb-8">
-              <div className="space-y-2">
-                <Label htmlFor="name" className="text-base font-inter font-medium">
-                  Nome completo *
-                </Label>
-                <Input
-                  id="name"
-                  placeholder="Seu nome"
-                  value={formData.name}
-                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  className="h-12 font-inter"
-                  required
-                />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="email" className="text-base font-inter font-medium">
-                  Email *
-                </Label>
-                <Input
-                  id="email"
-                  type="email"
-                  placeholder="seu@email.com"
-                  value={formData.email}
-                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  className="h-12 font-inter"
-                  required
-                />
-              </div>
-            </div>
-
+        <form onSubmit={handleSubmit} className="bg-white rounded-xl shadow-md p-8 sm:p-10">
+          <div className="space-y-8 md:space-y-8 sm:space-y-6">
             {/* Main Objective */}
-            <div className="mb-8">
-              <Label className="text-base font-inter font-medium mb-4 block">
-                Objetivo Principal *
-              </Label>
+            <div>
+              <div className="border-b border-gray-100 pb-4 mb-6">
+                <Label className="text-2xl font-bold text-black font-semibold mb-4 block">
+                  Objetivo Principal *
+                </Label>
+              </div>
               <ObjectiveSelector
                 selectedObjective={formData.main_objective}
                 onObjectiveChange={(objective) => 
@@ -144,10 +113,12 @@ const Index = () => {
             </div>
 
             {/* Campaign Options */}
-            <div className="mb-8">
-              <Label className="text-base font-inter font-medium mb-4 block">
-                Opções de Campanha *
-              </Label>
+            <div>
+              <div className="border-b border-gray-100 pb-4 mb-6">
+                <Label className="text-2xl font-bold text-black font-semibold mb-4 block">
+                  Opções de Campanha *
+                </Label>
+              </div>
               <CampaignOptions
                 selectedOptions={formData.campaign_options}
                 onSelectionChange={(options) => 
@@ -157,10 +128,12 @@ const Index = () => {
             </div>
 
             {/* Budget */}
-            <div className="mb-8">
-              <Label className="text-base font-inter font-medium mb-4 block">
-                Orçamento (BRL)
-              </Label>
+            <div>
+              <div className="border-b border-gray-100 pb-4 mb-6">
+                <Label className="text-2xl font-bold text-gray-800 mb-4 block">
+                  Orçamento (BRL)
+                </Label>
+              </div>
               <div className="space-y-4">
                 <div className="px-4">
                   <Slider
@@ -186,7 +159,7 @@ const Index = () => {
                 </div>
                 {formData.budget >= 500000 && (
                   <div className="max-w-xs mx-auto">
-                    <Label htmlFor="budget-override" className="text-sm font-inter">
+                    <Label htmlFor="budget-override" className="text-base text-gray-800">
                       Orçamento específico (opcional)
                     </Label>
                     <Input
@@ -203,19 +176,21 @@ const Index = () => {
             </div>
 
             {/* Date Range */}
-            <div className="mb-8">
-              <Label className="text-base font-inter font-medium mb-4 block">
-                Período da Campanha
-              </Label>
+            <div>
+              <div className="border-b border-gray-100 pb-4 mb-6">
+                <Label className="text-2xl font-bold text-gray-800 mb-4 block">
+                  Período da Campanha
+                </Label>
+              </div>
               <div className="grid md:grid-cols-2 gap-4">
                 <div>
-                  <Label className="text-sm text-gray-600 font-inter">Data de início</Label>
+                  <Label className="text-base text-gray-800 font-inter">Data de início</Label>
                   <Popover>
                     <PopoverTrigger asChild>
                       <Button
                         variant="outline"
                         className={cn(
-                          "w-full justify-start text-left font-normal h-12 font-inter",
+                          "w-full justify-start text-left font-normal h-12 font-inter transition-opacity hover:opacity-90",
                           !formData.start_date && "text-muted-foreground"
                         )}
                       >
@@ -235,13 +210,13 @@ const Index = () => {
                   </Popover>
                 </div>
                 <div>
-                  <Label className="text-sm text-gray-600 font-inter">Data de término</Label>
+                  <Label className="text-base text-gray-800 font-inter">Data de término</Label>
                   <Popover>
                     <PopoverTrigger asChild>
                       <Button
                         variant="outline"
                         className={cn(
-                          "w-full justify-start text-left font-normal h-12 font-inter",
+                          "w-full justify-start text-left font-normal h-12 font-inter transition-opacity hover:opacity-90",
                           !formData.end_date && "text-muted-foreground"
                         )}
                       >
@@ -264,39 +239,81 @@ const Index = () => {
             </div>
 
             {/* Products */}
-            <div className="mb-8">
-              <Label htmlFor="products" className="text-base font-inter font-medium mb-2 block">
-                Produtos
-              </Label>
+            <div>
+              <div className="border-b border-gray-100 pb-4 mb-6">
+                <Label htmlFor="products" className="text-2xl font-bold text-gray-800 mb-2 block">
+                  Produtos
+                </Label>
+              </div>
               <Textarea
                 id="products"
                 placeholder="Ex.: Daki Sabão em Pó 1 kg..."
                 value={formData.products}
                 onChange={(e) => setFormData({ ...formData, products: e.target.value })}
-                className="min-h-24 font-inter"
+                className="min-h-24 font-inter text-base"
                 rows={3}
               />
             </div>
 
             {/* Additional Details */}
-            <div className="mb-8">
-              <Label htmlFor="additional_details" className="text-base font-inter font-medium mb-2 block">
-                Detalhes Adicionais
-              </Label>
+            <div>
+              <div className="border-b border-gray-100 pb-4 mb-6">
+                <Label htmlFor="additional_details" className="text-2xl font-bold text-gray-800 mb-2 block">
+                  Detalhes Adicionais
+                </Label>
+              </div>
               <Textarea
                 id="additional_details"
                 placeholder="Informações extras sobre sua campanha..."
                 value={formData.additional_details}
                 onChange={(e) => setFormData({ ...formData, additional_details: e.target.value })}
-                className="min-h-32 font-inter"
+                className="min-h-32 font-inter text-base"
                 rows={4}
               />
+            </div>
+
+            {/* Basic Info - moved to end */}
+            <div>
+              <div className="border-b border-gray-100 pb-4 mb-6">
+                <Label className="text-2xl font-bold text-gray-800 mb-4 block">
+                  Informações de Contato *
+                </Label>
+              </div>
+              <div className="grid md:grid-cols-2 gap-6">
+                <div className="space-y-2">
+                  <Label htmlFor="name" className="text-base font-inter font-medium text-gray-800">
+                    Nome completo *
+                  </Label>
+                  <Input
+                    id="name"
+                    placeholder="Seu nome"
+                    value={formData.name}
+                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                    className="h-12 font-inter"
+                    required
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="email" className="text-base font-inter font-medium text-gray-800">
+                    Email *
+                  </Label>
+                  <Input
+                    id="email"
+                    type="email"
+                    placeholder="seu@email.com"
+                    value={formData.email}
+                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                    className="h-12 font-inter"
+                    required
+                  />
+                </div>
+              </div>
             </div>
 
             {/* Submit Button */}
             <Button
               type="submit"
-              className="w-full h-14 text-lg font-semibold bg-primary hover:bg-blue-700 transition-colors font-inter"
+              className="w-full h-14 text-lg font-semibold bg-primary hover:bg-blue-700 transition-opacity hover:opacity-90 font-inter"
               disabled={isSubmitting}
             >
               {isSubmitting ? "Enviando..." : "Solicitar Cotação"}

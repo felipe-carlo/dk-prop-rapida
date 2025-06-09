@@ -86,7 +86,7 @@ export const CampaignOptions = ({ selectedOptions, onSelectionChange }: Campaign
             key={option.id}
             onClick={() => toggleOption(option.id)}
             className={cn(
-              "p-4 rounded-lg border-2 cursor-pointer transition-all duration-200 hover:shadow-md text-center",
+              "p-4 rounded-lg border-2 cursor-pointer transition-all duration-200 hover:shadow-md hover:opacity-90 text-center",
               isSelected
                 ? "border-primary bg-blue-50 shadow-sm"
                 : "border-gray-200 bg-white hover:border-blue-200"
