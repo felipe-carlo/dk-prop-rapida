@@ -6,7 +6,6 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Slider } from "@/components/ui/slider";
-import { Card } from "@/components/ui/card";
 import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { CalendarIcon } from "lucide-react";
@@ -83,7 +82,7 @@ const Index = () => {
   const actualBudget = budgetOverride || formData.budget;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-white">
+    <div className="min-h-screen bg-white">
       <div className="container mx-auto px-4 py-8 max-w-4xl">
         {/* Header */}
         <div className="text-center mb-12">
@@ -99,7 +98,7 @@ const Index = () => {
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-8">
-          <Card className="p-8">
+          <div className="ring-2 ring-[#0066ff] mx-auto max-w-2xl p-6 bg-white rounded-2xl">
             {/* Basic Info */}
             <div className="grid md:grid-cols-2 gap-6 mb-8">
               <div className="space-y-2">
@@ -129,6 +128,19 @@ const Index = () => {
                   required
                 />
               </div>
+            </div>
+
+            {/* Main Objective */}
+            <div className="mb-8">
+              <Label className="text-base font-inter font-medium mb-4 block">
+                Objetivo Principal *
+              </Label>
+              <ObjectiveSelector
+                selectedObjective={formData.main_objective}
+                onObjectiveChange={(objective) => 
+                  setFormData({ ...formData, main_objective: objective })
+                }
+              />
             </div>
 
             {/* Campaign Options */}
@@ -188,19 +200,6 @@ const Index = () => {
                   </div>
                 )}
               </div>
-            </div>
-
-            {/* Main Objective */}
-            <div className="mb-8">
-              <Label className="text-base font-inter font-medium mb-4 block">
-                Objetivo Principal *
-              </Label>
-              <ObjectiveSelector
-                selectedObjective={formData.main_objective}
-                onObjectiveChange={(objective) => 
-                  setFormData({ ...formData, main_objective: objective })
-                }
-              />
             </div>
 
             {/* Date Range */}
@@ -302,7 +301,7 @@ const Index = () => {
             >
               {isSubmitting ? "Enviando..." : "Solicitar Cotação"}
             </Button>
-          </Card>
+          </div>
         </form>
       </div>
     </div>

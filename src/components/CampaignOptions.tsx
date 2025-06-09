@@ -81,11 +81,11 @@ export const CampaignOptions = ({ selectedOptions, onSelectionChange }: Campaign
             )}
           >
             <div className="flex items-center space-x-3">
-              <div className="text-2xl">{option.icon}</div>
+              <div className="text-2xl text-black">{option.icon}</div>
               <div className="flex-1">
                 <h3 className={cn(
-                  "font-medium text-sm font-inter",
-                  isSelected ? "text-primary" : "text-gray-900"
+                  "font-medium text-sm font-inter text-blue-700",
+                  isSelected ? "text-primary" : "text-blue-700"
                 )}>
                   {option.label}
                 </h3>
