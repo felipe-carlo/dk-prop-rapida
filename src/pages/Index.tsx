@@ -65,19 +65,17 @@ const Index = () => {
       // Insert into Supabase
       const { data: newLead, error } = await supabase
         .from('quote_requests')
-        .insert([
-          {
-            name: formData.name,
-            email: formData.email,
-            campaign_options: formData.campaign_options,
-            budget: finalBudget,
-            main_objective: formData.main_objective,
-            start_date: formData.start_date,
-            end_date: formData.end_date,
-            products: formData.products,
-            additional_details: formData.additional_details,
-          }
-        ])
+        .insert({
+          name: formData.name,
+          email: formData.email,
+          campaign_options: formData.campaign_options,
+          budget: finalBudget,
+          main_objective: formData.main_objective,
+          start_date: formData.start_date ? formData.start_date.toISOString().split('T')[0] : null,
+          end_date: formData.end_date ? formData.end_date.toISOString().split('T')[0] : null,
+          products: formData.products || null,
+          additional_details: formData.additional_details || null,
+        })
         .select()
         .single();
 
