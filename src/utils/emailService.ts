@@ -4,7 +4,7 @@ import { createPdf } from "./pdf";
 
 export async function sendQuoteEmail(lead: any) {
   const pdfBuffer = await createPdf(lead);
-  const resend = new Resend(process.env.RESEND_KEY);
+  const resend = new Resend(import.meta.env.VITE_RESEND_KEY);
 
   await resend.emails.send({
     from: "Daki Retail Media <cotacoes@daki.com>",
