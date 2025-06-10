@@ -14,7 +14,7 @@ import { cn } from "@/lib/utils";
 import { CampaignOptions } from "@/components/CampaignOptions";
 import { ObjectiveSelector } from "@/components/ObjectiveSelector";
 import { toast } from "@/hooks/use-toast";
-import { supabase } from "@/lib/supabase";
+import { supabase } from "@/integrations/supabase/client";
 import { sendQuoteEmail } from "@/utils/emailService";
 
 export type QuoteRequest = {
