@@ -30,8 +30,8 @@ interface ObjectiveSelectorProps {
 
 export const ObjectiveSelector = ({ selectedObjective, onObjectiveChange }: ObjectiveSelectorProps) => {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-      {objectives.map((objective) => {
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-0">
+      {objectives.map((objective, index) => {
         const isSelected = selectedObjective === objective.id;
         const IconComponent = objective.icon;
         
@@ -40,33 +40,46 @@ export const ObjectiveSelector = ({ selectedObjective, onObjectiveChange }: Obje
             key={objective.id}
             onClick={() => onObjectiveChange(objective.id)}
             className={cn(
-              "p-6 rounded-lg border-2 cursor-pointer transition-all duration-200 hover:shadow-md hover:opacity-90 text-center",
-              isSelected
-                ? "border-primary bg-blue-50 shadow-sm"
-                : "border-gray-200 bg-white hover:border-blue-200"
+              "flex flex-col border-r py-10 relative group/feature cursor-pointer transition-all duration-200",
+              "dark:border-neutral-800",
+              index === 0 && "border-l dark:border-neutral-800",
+              "border-b dark:border-neutral-800",
+              isSelected && "bg-blue-50"
             )}
           >
-            <div className="flex flex-col items-center space-y-3">
-              <div className="w-16 h-16 flex items-center justify-center">
-                <IconComponent 
-                  size={48} 
-                  strokeWidth={2}
-                  className={cn(
-                    "text-[#2B2B2B]",
-                    isSelected && "text-primary"
-                  )}
-                />
-              </div>
-              <h3 className={cn(
-                "font-semibold text-lg mb-1 font-inter text-blue-700",
-                isSelected ? "text-primary" : "text-blue-700"
+            <div className={cn(
+              "opacity-0 group-hover/feature:opacity-100 transition duration-200 absolute inset-0 h-full w-full bg-gradient-to-b from-neutral-100 dark:from-neutral-800 to-transparent pointer-events-none",
+              isSelected && "opacity-20"
+            )} />
+            
+            <div className="mb-4 relative z-10 px-10 text-neutral-600 dark:text-neutral-400">
+              <IconComponent 
+                size={48} 
+                strokeWidth={2}
+                className={cn(
+                  "text-[#2B2B2B]",
+                  isSelected && "text-primary"
+                )}
+              />
+            </div>
+            
+            <div className="text-lg font-bold mb-2 relative z-10 px-10">
+              <div className={cn(
+                "absolute left-0 inset-y-0 h-6 w-1 rounded-tr-full rounded-br-full bg-neutral-300 dark:bg-neutral-700 transition-all duration-200 origin-center",
+                "group-hover/feature:h-8 group-hover/feature:bg-blue-500",
+                isSelected && "bg-primary h-8"
+              )} />
+              <span className={cn(
+                "group-hover/feature:translate-x-2 transition duration-200 inline-block text-neutral-800 dark:text-neutral-100 font-inter text-blue-700",
+                isSelected && "text-primary translate-x-2"
               )}>
                 {objective.label}
-              </h3>
-              <p className="text-sm text-blue-700 font-inter">
-                {objective.description}
-              </p>
+              </span>
             </div>
+            
+            <p className="text-sm text-neutral-600 dark:text-neutral-300 max-w-xs relative z-10 px-10 font-inter text-blue-700">
+              {objective.description}
+            </p>
           </div>
         );
       })}
