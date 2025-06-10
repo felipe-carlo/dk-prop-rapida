@@ -3,14 +3,14 @@ import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { 
   MonitorSpeaker, 
-  Bullseye, 
+  Target, 
   Smartphone, 
-  UserStar, 
-  ChatRound, 
+  Star, 
+  MessageCircle, 
   ShoppingBag, 
-  Storefront, 
+  Store, 
   Book, 
-  GiftBox 
+  Gift 
 } from "lucide-react";
 
 const campaignOptions = [
@@ -22,7 +22,7 @@ const campaignOptions = [
   {
     id: "paid-media",
     label: "Paid Media with Custom Audiences",
-    icon: Bullseye
+    icon: Target
   },
   {
     id: "crm",
@@ -32,12 +32,12 @@ const campaignOptions = [
   {
     id: "influencers",
     label: "Influencers",
-    icon: UserStar
+    icon: Star
   },
   {
     id: "social-posts",
     label: "Social Posts",
-    icon: ChatRound
+    icon: MessageCircle
   },
   {
     id: "sponsored-product",
@@ -47,7 +47,7 @@ const campaignOptions = [
   {
     id: "offline-activations",
     label: "Offline Activations",
-    icon: Storefront
+    icon: Store
   },
   {
     id: "out-of-home",
@@ -57,7 +57,7 @@ const campaignOptions = [
   {
     id: "special-actions",
     label: "Special Actions (Custom bags, etc.)",
-    icon: GiftBox
+    icon: Gift
   }
 ];
 
