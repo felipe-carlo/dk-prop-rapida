@@ -100,9 +100,12 @@ const Index = () => {
             {/* Main Objective */}
             <div>
               <div className="border-b border-gray-100 pb-4 mb-6">
-                <Label className="text-2xl font-bold text-black font-semibold mb-4 block">
-                  Objetivo Principal *
+                <Label className="text-2xl font-bold text-black font-semibold mb-2 block underline">
+                  Objetivo Principal
                 </Label>
+                <p className="text-gray-600 font-inter">
+                  Selecione abaixo qual o objetivo primário da sua campanha
+                </p>
               </div>
               <ObjectiveSelector
                 selectedObjective={formData.main_objective}
@@ -115,9 +118,12 @@ const Index = () => {
             {/* Campaign Options */}
             <div>
               <div className="border-b border-gray-100 pb-4 mb-6">
-                <Label className="text-2xl font-bold text-black font-semibold mb-4 block">
-                  Opções de Campanha *
+                <Label className="text-2xl font-bold text-black font-semibold mb-2 block underline">
+                  Opções de Campanha
                 </Label>
+                <p className="text-gray-600 font-inter">
+                  Selecione abaixo quantas desejar
+                </p>
               </div>
               <CampaignOptions
                 selectedOptions={formData.campaign_options}

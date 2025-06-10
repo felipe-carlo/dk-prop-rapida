@@ -40,7 +40,7 @@ export const ObjectiveSelector = ({ selectedObjective, onObjectiveChange }: Obje
             key={objective.id}
             onClick={() => onObjectiveChange(objective.id)}
             className={cn(
-              "flex flex-col border-r py-10 relative group/feature cursor-pointer transition-all duration-200",
+              "flex flex-col items-center border-r py-10 relative group/feature cursor-pointer transition-all duration-200",
               "dark:border-neutral-800",
               index === 0 && "border-l dark:border-neutral-800",
               "border-b dark:border-neutral-800",
@@ -52,7 +52,7 @@ export const ObjectiveSelector = ({ selectedObjective, onObjectiveChange }: Obje
               isSelected && "opacity-20"
             )} />
             
-            <div className="mb-4 relative z-10 px-10 text-neutral-600 dark:text-neutral-400">
+            <div className="mb-4 relative z-10 text-neutral-600 dark:text-neutral-400 flex justify-center">
               <IconComponent 
                 size={48} 
                 strokeWidth={2}
@@ -63,12 +63,7 @@ export const ObjectiveSelector = ({ selectedObjective, onObjectiveChange }: Obje
               />
             </div>
             
-            <div className="text-lg font-bold mb-2 relative z-10 px-10">
-              <div className={cn(
-                "absolute left-0 inset-y-0 h-6 w-1 rounded-tr-full rounded-br-full bg-neutral-300 dark:bg-neutral-700 transition-all duration-200 origin-center",
-                "group-hover/feature:h-8 group-hover/feature:bg-blue-500",
-                isSelected && "bg-primary h-8"
-              )} />
+            <div className="text-lg font-bold mb-2 relative z-10 text-center">
               <span className={cn(
                 "group-hover/feature:translate-x-2 transition duration-200 inline-block text-neutral-800 dark:text-neutral-100 font-inter text-blue-700",
                 isSelected && "text-primary translate-x-2"
@@ -77,7 +72,7 @@ export const ObjectiveSelector = ({ selectedObjective, onObjectiveChange }: Obje
               </span>
             </div>
             
-            <p className="text-sm text-neutral-600 dark:text-neutral-300 max-w-xs relative z-10 px-10 font-inter text-blue-700">
+            <p className="text-sm text-neutral-600 dark:text-neutral-300 relative z-10 font-inter text-blue-700 text-center">
               {objective.description}
             </p>
           </div>
