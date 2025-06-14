@@ -62,6 +62,7 @@ const Index = () => {
     try {
       const finalBudget = budgetOverride || formData.budget;
       
+      console.log("Salvando no Supabase...");
       // Insert into Supabase
       const { data: newLead, error } = await supabase
         .from('quote_requests')
@@ -79,10 +80,27 @@ const Index = () => {
         .select()
         .single();
 
-      if (error) throw error;
+      if (error) {
+        console.error("Erro do Supabase:", error);
+        throw error;
+      }
 
-      // Send email
-      await sendQuoteEmail(newLead);
+      console.log("Dados salvos no Supabase:", newLead);
+
+      // Try to send email, but don't fail the whole process if it fails
+      try {
+        console.log("Tentando enviar email...");
+        await sendQuoteEmail(newLead);
+        console.log("Email enviado com sucesso");
+      } catch (emailError) {
+        console.error("Erro ao enviar email (mas continuando o processo):", emailError);
+        // Show warning but don't block the process
+        toast({
+          title: "Cotação salva",
+          description: "Sua cotação foi salva com sucesso, mas houve um problema no envio do email.",
+          variant: "default",
+        });
+      }
       
       // Navigate to summary page with lead data
       navigate("/resumo", { 
@@ -99,7 +117,7 @@ const Index = () => {
         }
       });
     } catch (error) {
-      console.error("Error submitting quote:", error);
+      console.error("Erro geral:", error);
       toast({
         title: "Erro",
         description: "Ocorreu um erro ao enviar sua solicitação. Tente novamente.",
