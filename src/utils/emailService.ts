@@ -1,34 +1,21 @@
 
-import { Resend } from "resend";
-import { createPdf } from "./pdf";
+import { supabase } from "@/integrations/supabase/client";
 
 export async function sendQuoteEmail(lead: any) {
   try {
-    console.log("Iniciando envio de email para:", lead.email);
+    console.log("Enviando email via edge function para:", lead.email);
     
-    const pdfUint8Array = await createPdf(lead);
-    console.log("PDF gerado com sucesso, tamanho:", pdfUint8Array.length);
-    
-    const resendKey = import.meta.env.VITE_RESEND_KEY;
-    if (!resendKey) {
-      throw new Error("Chave da API Resend não configurada");
-    }
-    
-    const resend = new Resend(resendKey);
-
-    const result = await resend.emails.send({
-      from: "Daki Retail Media <cotacoes@daki.com>",
-      to: ["felipe.carlo@soudaki.com"],
-      subject: `Novo pedido de cotação – ${lead.name}`,
-      html: `<p>Segue resumo do pedido gerado automaticamente.</p>`,
-      attachments: [{ 
-        filename: "cotacao.pdf", 
-        content: Array.from(pdfUint8Array)
-      }]
+    const { data, error } = await supabase.functions.invoke('send-quote-email', {
+      body: { leadId: lead.id },
     });
-    
-    console.log("Email enviado com sucesso:", result);
-    return result;
+
+    if (error) {
+      console.error("Erro na edge function:", error);
+      throw error;
+    }
+
+    console.log("Email enviado com sucesso:", data);
+    return data;
   } catch (error) {
     console.error("Erro detalhado ao enviar email:", error);
     throw error;
