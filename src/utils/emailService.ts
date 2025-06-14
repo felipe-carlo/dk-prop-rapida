@@ -1,9 +1,11 @@
 
+
 import { Resend } from "resend";
 import { createPdf } from "./pdf";
 
 export async function sendQuoteEmail(lead: any) {
-  const pdfBuffer = await createPdf(lead);
+  const pdfUint8Array = await createPdf(lead);
+  const pdfBuffer = Buffer.from(pdfUint8Array);
   const resend = new Resend(import.meta.env.VITE_RESEND_KEY);
 
   await resend.emails.send({
@@ -14,3 +16,4 @@ export async function sendQuoteEmail(lead: any) {
     attachments: [{ filename: "cotacao.pdf", content: pdfBuffer }]
   });
 }
+
