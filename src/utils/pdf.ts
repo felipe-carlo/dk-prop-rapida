@@ -1,7 +1,7 @@
 
 import jsPDF from 'jspdf';
 
-export async function createPdf(lead: any): Promise<Buffer> {
+export async function createPdf(lead: any): Promise<Uint8Array> {
   const doc = new jsPDF();
   
   // Header
@@ -46,5 +46,5 @@ export async function createPdf(lead: any): Promise<Buffer> {
   }
   
   const pdfOutput = doc.output('arraybuffer');
-  return Buffer.from(pdfOutput);
+  return new Uint8Array(pdfOutput);
 }
