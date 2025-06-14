@@ -7,7 +7,7 @@ interface QuestionProps {
 
 export const Question = ({ children }: QuestionProps) => {
   return (
-    <h2 className="text-2xl font-bold text-gray-900 mb-10 font-owners text-center">
+    <h2 className="text-2xl font-semibold text-gray-900 mb-10 text-center">
       {children}
     </h2>
   );

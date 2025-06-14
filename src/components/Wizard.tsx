@@ -8,8 +8,7 @@ import { ObjectiveStep } from "@/components/steps/ObjectiveStep";
 import { InventoryStep } from "@/components/steps/InventoryStep";
 import { BudgetStep } from "@/components/steps/BudgetStep";
 import { PeriodStep } from "@/components/steps/PeriodStep";
-import { ProductsStep } from "@/components/steps/ProductsStep";
-import { DetailsStep } from "@/components/steps/DetailsStep";
+import { ProductsDetailsStep } from "@/components/steps/ProductsDetailsStep";
 import { ContactStep } from "@/components/steps/ContactStep";
 import { supabase } from "@/integrations/supabase/client";
 import { sendQuoteEmail } from "@/utils/emailService";
@@ -47,7 +46,9 @@ export const Wizard = () => {
 
   const steps = [
     {
-      label: "Qual é o objetivo principal da sua campanha?",
+      id: 'objetivo',
+      label: 'Objetivo',
+      question: "Qual é o objetivo principal da sua campanha?",
       component: (
         <ObjectiveStep
           selectedObjective={formData.main_objective}
@@ -58,7 +59,9 @@ export const Wizard = () => {
       )
     },
     {
-      label: "Quais opções de inventário te interessam?",
+      id: 'inventario',
+      label: 'Inventário',
+      question: "Quais opções de inventário te interessam?",
       component: (
         <InventoryStep
           selectedOptions={formData.campaign_options}
@@ -69,7 +72,9 @@ export const Wizard = () => {
       )
     },
     {
-      label: "Qual é o orçamento disponível para a campanha?",
+      id: 'orcamento',
+      label: 'Orçamento',
+      question: "Qual é o orçamento disponível para a campanha?",
       component: (
         <BudgetStep
           budget={formData.budget}
@@ -80,7 +85,9 @@ export const Wizard = () => {
       )
     },
     {
-      label: "Qual o período da campanha?",
+      id: 'periodo',
+      label: 'Período',
+      question: "Qual o período da campanha?",
       component: (
         <PeriodStep
           startDate={formData.start_date}
@@ -95,21 +102,16 @@ export const Wizard = () => {
       )
     },
     {
-      label: "Quais produtos deseja incluir na campanha?",
+      id: 'produtos',
+      label: 'Produtos & Detalhes',
+      question: "Quais produtos deseja incluir na campanha?",
       component: (
-        <ProductsStep
+        <ProductsDetailsStep
           products={formData.products}
+          details={formData.additional_details}
           onProductsChange={(products) => 
             setFormData({ ...formData, products })
           }
-        />
-      )
-    },
-    {
-      label: "Algum detalhe adicional sobre a campanha?",
-      component: (
-        <DetailsStep
-          details={formData.additional_details}
           onDetailsChange={(details) => 
             setFormData({ ...formData, additional_details: details })
           }
@@ -117,7 +119,9 @@ export const Wizard = () => {
       )
     },
     {
-      label: "Para finalizarmos, precisamos dos seus dados de contato:",
+      id: 'contato',
+      label: 'Contato',
+      question: "Para finalizarmos, precisamos dos seus dados de contato:",
       component: (
         <ContactStep
           name={formData.name}
@@ -141,9 +145,8 @@ export const Wizard = () => {
       case 1: return formData.campaign_options.length > 0;
       case 2: return formData.budget > 0;
       case 3: return true; // Period is optional
-      case 4: return true; // Products is optional
-      case 5: return true; // Details is optional
-      case 6: return formData.name !== "" && formData.email !== "";
+      case 4: return true; // Products and details are optional
+      case 5: return formData.name !== "" && formData.email !== "";
       default: return false;
     }
   };
@@ -234,36 +237,44 @@ export const Wizard = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 relative overflow-hidden">
+    <div className="min-h-screen bg-gray-50 relative overflow-hidden font-inter">
       {/* Background wave - only on large screens */}
       <div className="hidden lg:block absolute inset-y-0 right-0 w-1/2 bg-[#0066FF] rounded-tl-[120px] z-[-1]" />
       
       <div className="container mx-auto px-4 py-8">
+        {/* Mobile Progress Bar */}
+        <div className="md:hidden h-2 w-full bg-gray-200 rounded-full overflow-hidden mb-6">
+          <div 
+            className="h-full bg-[#0066FF] transition-all duration-300" 
+            style={{width: progressPercentage + '%'}} 
+          />
+        </div>
+
         <div className="max-w-5xl mx-auto flex bg-white rounded-3xl shadow-xl overflow-hidden min-h-[600px]">
-          {/* Sidebar */}
-          <div className="w-60 bg-[#F8F9FC] flex flex-col items-center py-12 space-y-12">
+          {/* Sidebar - Hidden on mobile */}
+          <div className="hidden md:flex w-60 bg-[#F8F9FC] flex-col items-center py-12 space-y-12">
             {/* Logo */}
             <div className="w-16 h-16 bg-[#0066FF] rounded-2xl flex items-center justify-center">
-              <span className="text-lg font-bold text-white font-owners">DAKI</span>
+              <span className="text-lg font-semibold text-white">DAKI</span>
             </div>
             
             {/* Progress Circle */}
             <div className="flex flex-col items-center space-y-3">
               <ProgressCircle value={progressPercentage} className="w-24 h-24" />
-              <span className="text-sm text-gray-500 font-inter">{progressPercentage}% preenchido</span>
+              <span className="text-sm text-gray-500">{progressPercentage}% preenchido</span>
             </div>
             
             {/* Step indicators */}
             <div className="flex flex-col space-y-3">
-              {steps.map((_, index) => (
-                <div key={index} className="flex items-center space-x-3">
+              {steps.map((step, index) => (
+                <div key={step.id} className="flex items-center space-x-3">
                   <div className={`w-3 h-3 rounded-full ${
                     index <= currentStep ? 'bg-[#0066FF]' : 'bg-gray-300'
                   }`} />
-                  <span className={`text-sm font-inter ${
+                  <span className={`text-sm ${
                     index === currentStep ? 'text-[#0066FF] font-semibold' : 'text-gray-500'
                   }`}>
-                    Etapa {index + 1}
+                    {step.label}
                   </span>
                 </div>
               ))}
@@ -271,9 +282,9 @@ export const Wizard = () => {
           </div>
           
           {/* Main Stage */}
-          <div className="flex-1 relative px-16 py-20">
+          <div className="flex-1 relative px-6 md:px-16 py-8 md:py-20">
             <div className="max-w-2xl mx-auto">
-              <Question>{steps[currentStep].label}</Question>
+              <Question>{steps[currentStep].question}</Question>
               
               <div className="transition-all duration-300 ease-out">
                 {steps[currentStep].component}
