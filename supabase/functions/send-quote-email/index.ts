@@ -39,28 +39,34 @@ const handler = async (req: Request): Promise<Response> => {
       throw new Error('Lead not found');
     }
 
-    // Create PDF content (simplified version)
-    const pdfContent = `
-      Nome: ${lead.name}
-      Email: ${lead.email}
-      Objetivo: ${lead.main_objective}
-      Orçamento: R$ ${lead.budget.toLocaleString('pt-BR')}
-      Opções: ${lead.campaign_options.join(', ')}
-      ${lead.start_date ? `Data Início: ${new Date(lead.start_date).toLocaleDateString('pt-BR')}` : ''}
-      ${lead.end_date ? `Data Fim: ${new Date(lead.end_date).toLocaleDateString('pt-BR')}` : ''}
-      ${lead.products ? `Produtos: ${lead.products}` : ''}
-      ${lead.additional_details ? `Detalhes: ${lead.additional_details}` : ''}
+    // Create email content
+    const emailContent = `
+      <h1>Nova Cotação Recebida - Daki Retail Media</h1>
+      <div style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
+        <h2>Informações do Cliente:</h2>
+        <p><strong>Nome:</strong> ${lead.name}</p>
+        <p><strong>Email:</strong> ${lead.email}</p>
+        
+        <h2>Detalhes da Campanha:</h2>
+        <p><strong>Objetivo:</strong> ${lead.main_objective}</p>
+        <p><strong>Orçamento:</strong> R$ ${lead.budget.toLocaleString('pt-BR')}</p>
+        <p><strong>Opções de Campanha:</strong> ${lead.campaign_options.join(', ')}</p>
+        
+        ${lead.start_date ? `<p><strong>Data de Início:</strong> ${new Date(lead.start_date).toLocaleDateString('pt-BR')}</p>` : ''}
+        ${lead.end_date ? `<p><strong>Data de Término:</strong> ${new Date(lead.end_date).toLocaleDateString('pt-BR')}</p>` : ''}
+        ${lead.products ? `<p><strong>Produtos:</strong> ${lead.products}</p>` : ''}
+        ${lead.additional_details ? `<p><strong>Detalhes Adicionais:</strong> ${lead.additional_details}</p>` : ''}
+        
+        <hr style="margin: 20px 0;">
+        <p><em>Cotação gerada automaticamente em ${new Date().toLocaleString('pt-BR')}</em></p>
+      </div>
     `;
 
     const emailResponse = await resend.emails.send({
       from: "Daki Retail Media <onboarding@resend.dev>",
-      to: ["felipe.carlo@soudaki.com"],
-      subject: `Novo pedido de cotação – ${lead.name}`,
-      html: `
-        <h1>Nova Cotação Recebida</h1>
-        <p>Segue resumo do pedido gerado automaticamente:</p>
-        <pre>${pdfContent}</pre>
-      `,
+      to: ["felipe.cts1@gmail.com"], // Usando seu email verificado
+      subject: `Nova Cotação - ${lead.name} (${lead.email})`,
+      html: emailContent,
     });
 
     console.log("Email sent successfully:", emailResponse);
