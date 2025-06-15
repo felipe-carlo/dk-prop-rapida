@@ -13,6 +13,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { sendQuoteEmail } from "@/utils/emailService";
 import { toast } from "@/hooks/use-toast";
 import { format } from "date-fns";
+import { cn } from "@/lib/utils";
 
 export type QuoteRequest = {
   name: string;
@@ -137,6 +138,7 @@ export const Wizard = () => {
   ];
 
   const progressPercentage = Math.round(((currentStep + 1) / steps.length) * 100);
+  const currentStepId = steps[currentStep].id;
 
   const canProceed = () => {
     switch (currentStep) {
@@ -282,13 +284,23 @@ export const Wizard = () => {
           
           {/* Main Stage */}
           <div className="flex-1 px-6 py-12 sm:px-10 lg:px-14 lg:py-20 max-w-[100rem] mx-auto relative">
-            <div className="absolute inset-y-0 right-0 w-1/3 bg-gradient-to-br from-[#F0F4FF] to-transparent pointer-events-none rounded-tl-[120px] hidden xl:block" />
+            <div
+              className={cn(
+                "absolute inset-y-0 right-0 w-1/3 pointer-events-none z-[-1]",
+                currentStepId === 'orcamento' && "hidden xl:block"
+              )}
+              style={{ background: "linear-gradient(135deg,#F7F9FF 0%,transparent 70%)", opacity: 0.15 }}
+            />
             
             <div className="max-w-2xl mx-auto relative z-10">
-              <Question>{steps[currentStep].question}</Question>
-              
-              <div className="transition-all duration-300 ease-out">
-                {steps[currentStep].component}
+              <div className="flex flex-col items-start gap-8">
+                <h2 className="text-2xl font-semibold text-gray-900 text-left">
+                  {steps[currentStep].question}
+                </h2>
+                
+                <div className="transition-all duration-300 ease-out w-full">
+                  {steps[currentStep].component}
+                </div>
               </div>
               
               <NavButtons
