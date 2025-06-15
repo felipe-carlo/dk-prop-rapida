@@ -91,7 +91,7 @@ export const CampaignOptions = ({ selectedOptions, onSelectionChange }: Campaign
               isSelected && "border-[#0066FF] ring-2 ring-[#0066FF]"
             )}
           >
-            <IconComponent className="w-10 h-10 stroke-[2] text-gray-800" />
+            <IconComponent className="w-8 h-8 stroke-[2] text-gray-800" />
             <span className="text-sm font-semibold text-gray-900 text-center px-2">
               {option.label}
             </span>

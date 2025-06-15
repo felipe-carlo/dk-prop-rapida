@@ -45,12 +45,12 @@ export const ObjectiveSelector = ({ selectedObjective, onObjectiveChange }: Obje
               isSelected && "border-[#0066FF] ring-2 ring-[#0066FF]"
             )}
           >
-            <IconComponent className="w-10 h-10 stroke-[2] text-gray-800" />
+            <IconComponent className="w-8 h-8 stroke-[2] text-gray-800" />
             <div className="text-center">
               <span className="text-sm font-semibold text-gray-900 block">
                 {objective.label}
               </span>
-              <span className="text-xs text-gray-500 text-center px-2">
+              <span className="text-xs text-gray-500 text-center leading-tight px-2">
                 {objective.description}
               </span>
             </div>
