@@ -11,6 +11,15 @@ export interface AdminUser {
 export async function loginAdmin(username: string, password: string): Promise<{ user: AdminUser | null; error: string | null }> {
   try {
     console.log("Chamando função RPC verify_admin_login...");
+    console.log("Parâmetros:", { username, password: "***" });
+    
+    // First, let's check if the admin user exists at all
+    const { data: adminCheck, error: adminCheckError } = await supabase
+      .from('admin_users')
+      .select('id, username')
+      .eq('username', username);
+    
+    console.log("Verificação de usuário admin:", { adminCheck, adminCheckError });
     
     // Call a database function to verify credentials
     const { data, error } = await supabase

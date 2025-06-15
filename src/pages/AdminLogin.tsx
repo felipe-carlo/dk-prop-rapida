@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { loginAdmin, setAdminSession } from "@/utils/adminAuth";
+import { debugAdminUsers } from "@/utils/debugAdmin";
 import { toast } from "@/hooks/use-toast";
 import { Eye, EyeOff } from "lucide-react";
 
@@ -19,6 +20,9 @@ export default function AdminLogin() {
     setError(false);
 
     console.log("Tentando login com:", { username });
+    
+    // Executar debug antes do login
+    await debugAdminUsers();
 
     try {
       const { user, error: loginError } = await loginAdmin(username, password);
