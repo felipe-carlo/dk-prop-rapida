@@ -6,19 +6,19 @@ const objectives = [
   {
     id: "awareness",
     label: "Awareness",
-    description: "Maximize reach",
+    description: "Maximizar alcance e conhecimento",
     icon: Eye
   },
   {
-    id: "consideration",
-    label: "Consideration",
-    description: "Engage & inform",
+    id: "consideracao",
+    label: "Consideração",
+    description: "Engajar e informar sobre o produto",
     icon: Target
   },
   {
-    id: "conversion",
-    label: "Conversion",
-    description: "Drive sales now",
+    id: "conversao",
+    label: "Conversão",
+    description: "Foco em vendas",
     icon: ShoppingCart
   }
 ];
@@ -40,7 +40,7 @@ export const ObjectiveSelector = ({ selectedObjective, onObjectiveChange }: Obje
             key={objective.id}
             onClick={() => onObjectiveChange(objective.id)}
             className={cn(
-              "w-32 h-36 flex flex-col items-center justify-center space-y-3 rounded-xl transition",
+              "w-32 h-36 flex flex-col items-center justify-center space-y-2 rounded-xl transition",
               "border border-gray-200 hover:border-[#0066FF] hover:shadow-md",
               isSelected && "border-[#0066FF] ring-2 ring-[#0066FF]"
             )}
@@ -50,7 +50,7 @@ export const ObjectiveSelector = ({ selectedObjective, onObjectiveChange }: Obje
               <span className="text-sm font-semibold text-gray-900 block">
                 {objective.label}
               </span>
-              <span className="text-xs text-gray-600">
+              <span className="text-xs text-gray-500 text-center px-2">
                 {objective.description}
               </span>
             </div>

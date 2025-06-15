@@ -76,65 +76,26 @@ export const CampaignOptions = ({ selectedOptions, onSelectionChange }: Campaign
   };
 
   return (
-    <div className="grid grid-cols-2 lg:grid-cols-3 gap-0">
-      {campaignOptions.map((option, index) => {
+    <div className="grid grid-cols-2 lg:grid-cols-3 gap-4">
+      {campaignOptions.map((option) => {
         const isSelected = selectedOptions.includes(option.id);
         const IconComponent = option.icon;
         
         return (
-          <div
+          <button
             key={option.id}
             onClick={() => toggleOption(option.id)}
             className={cn(
-              "flex flex-col items-center border-r py-10 relative group/feature cursor-pointer transition-all duration-200",
-              "dark:border-neutral-800",
-              (index === 0 || index === 3 || index === 6) && "lg:border-l dark:border-neutral-800",
-              (index === 0 || index === 1 || index === 2) && "border-b dark:border-neutral-800",
-              (index === 3 || index === 4 || index === 5) && "lg:border-b dark:border-neutral-800",
-              isSelected && "bg-blue-50"
+              "w-32 h-36 flex flex-col items-center justify-center space-y-2 rounded-xl transition",
+              "border border-gray-200 hover:border-[#0066FF] hover:shadow-md",
+              isSelected && "border-[#0066FF] ring-2 ring-[#0066FF]"
             )}
           >
-            <div className={cn(
-              "opacity-0 group-hover/feature:opacity-100 transition duration-200 absolute inset-0 h-full w-full pointer-events-none",
-              index < 3 && "bg-gradient-to-t from-neutral-100 dark:from-neutral-800 to-transparent",
-              index >= 3 && index < 6 && "bg-gradient-to-b from-neutral-100 dark:from-neutral-800 to-transparent",
-              index >= 6 && "bg-gradient-to-b from-neutral-100 dark:from-neutral-800 to-transparent",
-              isSelected && "opacity-20"
-            )} />
-            
-            <div className="mb-4 relative z-10 text-neutral-600 dark:text-neutral-400 flex justify-center">
-              <IconComponent 
-                size={48} 
-                strokeWidth={2}
-                className={cn(
-                  "text-[#2B2B2B]",
-                  isSelected && "text-primary"
-                )}
-              />
-            </div>
-            
-            <div className="text-lg font-bold mb-2 relative z-10 text-center">
-              <span className={cn(
-                "group-hover/feature:translate-x-2 transition duration-200 inline-block text-black dark:text-neutral-100 font-bold text-sm font-inter leading-tight",
-                isSelected && "text-black translate-x-2"
-              )}>
-                {option.label}
-              </span>
-            </div>
-            
-            <div className="relative z-10">
-              <div className={cn(
-                "w-5 h-5 rounded-full border-2 flex items-center justify-center mx-auto",
-                isSelected
-                  ? "border-primary bg-primary"
-                  : "border-gray-300"
-              )}>
-                {isSelected && (
-                  <div className="w-2 h-2 bg-white rounded-full" />
-                )}
-              </div>
-            </div>
-          </div>
+            <IconComponent className="w-10 h-10 stroke-[2] text-gray-800" />
+            <span className="text-sm font-semibold text-gray-900 text-center px-2">
+              {option.label}
+            </span>
+          </button>
         );
       })}
     </div>
