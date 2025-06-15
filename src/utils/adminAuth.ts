@@ -10,6 +10,8 @@ export interface AdminUser {
 
 export async function loginAdmin(username: string, password: string): Promise<{ user: AdminUser | null; error: string | null }> {
   try {
+    console.log("Chamando função RPC verify_admin_login...");
+    
     // Call a database function to verify credentials
     const { data, error } = await supabase
       .rpc('verify_admin_login', {
@@ -17,17 +19,21 @@ export async function loginAdmin(username: string, password: string): Promise<{ 
         admin_password: password
       });
 
+    console.log("Resposta da função RPC:", { data, error });
+
     if (error) {
       console.error("Erro na função RPC:", error);
       return { user: null, error: "Erro interno do servidor" };
     }
 
     if (!data || data.length === 0) {
+      console.log("Nenhum usuário retornado - credenciais inválidas");
       return { user: null, error: "Credenciais inválidas" };
     }
 
     // Return the first user from the result
     const adminUser = data[0];
+    console.log("Usuário admin encontrado:", adminUser);
     return { user: adminUser, error: null };
   } catch (error) {
     console.error("Erro no login do admin:", error);
