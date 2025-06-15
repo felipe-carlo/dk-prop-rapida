@@ -20,7 +20,9 @@ export async function debugAdminUsers() {
     
     console.log("Usuário 'admin' específico:", { adminUser, adminUserError });
     
-    // Testar a função RPC diretamente
+    // Testar a função RPC diretamente com vários cenários
+    console.log("=== Testando função RPC ===");
+    
     const { data: rpcResult, error: rpcError } = await supabase
       .rpc('verify_admin_login', {
         admin_username: 'admin',
@@ -28,6 +30,23 @@ export async function debugAdminUsers() {
       });
     
     console.log("Teste direto da função RPC:", { rpcResult, rpcError });
+    
+    // Testar com senha incorreta para comparar
+    const { data: wrongPasswordResult, error: wrongPasswordError } = await supabase
+      .rpc('verify_admin_login', {
+        admin_username: 'admin',
+        admin_password: 'senhaerrada'
+      });
+    
+    console.log("Teste com senha errada:", { wrongPasswordResult, wrongPasswordError });
+    
+    // Testar verificação manual do hash bcrypt
+    if (allUsers && allUsers.length > 0) {
+      const storedHash = allUsers[0].password_hash;
+      console.log("Hash armazenado:", storedHash);
+      console.log("Comprimento do hash:", storedHash?.length);
+      console.log("Formato do hash:", storedHash?.substring(0, 10) + "...");
+    }
     
   } catch (error) {
     console.error("Erro no debug:", error);

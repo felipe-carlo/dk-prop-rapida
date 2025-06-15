@@ -10,16 +10,24 @@ export interface AdminUser {
 
 export async function loginAdmin(username: string, password: string): Promise<{ user: AdminUser | null; error: string | null }> {
   try {
+    console.log("=== INÍCIO DO LOGIN ADMIN ===");
     console.log("Chamando função RPC verify_admin_login...");
     console.log("Parâmetros:", { username, password: "***" });
     
     // First, let's check if the admin user exists at all
     const { data: adminCheck, error: adminCheckError } = await supabase
       .from('admin_users')
-      .select('id, username')
+      .select('id, username, password_hash')
       .eq('username', username);
     
     console.log("Verificação de usuário admin:", { adminCheck, adminCheckError });
+    
+    if (!adminCheck || adminCheck.length === 0) {
+      console.log("❌ Usuário não encontrado na base de dados");
+      return { user: null, error: "Usuário não encontrado" };
+    }
+    
+    console.log("✅ Usuário encontrado, testando função RPC...");
     
     // Call a database function to verify credentials
     const { data, error } = await supabase
@@ -31,21 +39,26 @@ export async function loginAdmin(username: string, password: string): Promise<{ 
     console.log("Resposta da função RPC:", { data, error });
 
     if (error) {
-      console.error("Erro na função RPC:", error);
+      console.error("❌ Erro na função RPC:", error);
       return { user: null, error: "Erro interno do servidor" };
     }
 
     if (!data || data.length === 0) {
-      console.log("Nenhum usuário retornado - credenciais inválidas");
-      return { user: null, error: "Credenciais inválidas" };
+      console.log("❌ Nenhum usuário retornado - senha incorreta");
+      
+      // Teste adicional para verificar se é problema de hash
+      console.log("Hash armazenado:", adminCheck[0].password_hash);
+      console.log("Comprimento do hash:", adminCheck[0].password_hash?.length);
+      
+      return { user: null, error: "Senha incorreta" };
     }
 
     // Return the first user from the result
     const adminUser = data[0];
-    console.log("Usuário admin encontrado:", adminUser);
+    console.log("✅ Usuário admin autenticado:", adminUser);
     return { user: adminUser, error: null };
   } catch (error) {
-    console.error("Erro no login do admin:", error);
+    console.error("❌ Erro no login do admin:", error);
     return { user: null, error: "Erro interno do servidor" };
   }
 }
