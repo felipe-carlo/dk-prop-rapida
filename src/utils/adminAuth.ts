@@ -1,6 +1,5 @@
 
 import { supabase } from "@/integrations/supabase/client";
-import bcrypt from "bcryptjs";
 
 export interface AdminUser {
   id: string;
@@ -11,27 +10,25 @@ export interface AdminUser {
 
 export async function loginAdmin(username: string, password: string): Promise<{ user: AdminUser | null; error: string | null }> {
   try {
-    // Fetch admin user by username
-    const { data: adminUser, error } = await supabase
-      .from('admin_users')
-      .select('id, username, password_hash, created_at, updated_at')
-      .eq('username', username)
-      .single();
+    // Call a database function to verify credentials
+    const { data, error } = await supabase
+      .rpc('verify_admin_login', {
+        admin_username: username,
+        admin_password: password
+      });
 
-    if (error || !adminUser) {
-      return { user: null, error: "Usuário não encontrado" };
+    if (error) {
+      console.error("Erro na função RPC:", error);
+      return { user: null, error: "Erro interno do servidor" };
     }
 
-    // Verify password
-    const isValidPassword = await bcrypt.compare(password, adminUser.password_hash);
-    
-    if (!isValidPassword) {
-      return { user: null, error: "Senha incorreta" };
+    if (!data || data.length === 0) {
+      return { user: null, error: "Credenciais inválidas" };
     }
 
-    // Return user without password hash
-    const { password_hash, ...userWithoutPassword } = adminUser;
-    return { user: userWithoutPassword, error: null };
+    // Return the first user from the result
+    const adminUser = data[0];
+    return { user: adminUser, error: null };
   } catch (error) {
     console.error("Erro no login do admin:", error);
     return { user: null, error: "Erro interno do servidor" };
