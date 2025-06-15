@@ -17,7 +17,7 @@ interface BudgetSliderProps {
 
 export default function BudgetSlider({ value, setValue }: BudgetSliderProps) {
   const [editing, setEditing] = useState(false);
-  const [inputVal, setInputVal] = useState(value);
+  const [inputVal, setInputVal] = useState<string | number>(value);
 
   const handleSlider = (e: React.ChangeEvent<HTMLInputElement>) => {
     const raw = Number(e.target.value);
