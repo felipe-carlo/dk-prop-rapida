@@ -76,7 +76,7 @@ export const CampaignOptions = ({ selectedOptions, onSelectionChange }: Campaign
   };
 
   return (
-    <div className="grid grid-cols-2 lg:grid-cols-3 gap-4">
+    <div className="grid gap-6 sm:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5 justify-items-center">
       {campaignOptions.map((option) => {
         const isSelected = selectedOptions.includes(option.id);
         const IconComponent = option.icon;
@@ -92,7 +92,7 @@ export const CampaignOptions = ({ selectedOptions, onSelectionChange }: Campaign
             )}
           >
             <IconComponent className="w-8 h-8 stroke-[2] text-gray-800" />
-            <span className="text-sm font-semibold text-gray-900 text-center px-2">
+            <span className="text-xs text-gray-500 text-center leading-tight max-w-[9rem] px-2">
               {option.label}
             </span>
           </button>

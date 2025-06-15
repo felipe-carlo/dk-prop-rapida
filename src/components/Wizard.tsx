@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ProgressCircle } from "@/components/ui/progress-circle";
@@ -282,8 +281,10 @@ export const Wizard = () => {
           </div>
           
           {/* Main Stage */}
-          <div className="flex-1 relative px-6 md:px-16 py-8 md:py-20">
-            <div className="max-w-2xl mx-auto">
+          <div className="flex-1 px-6 py-12 sm:px-10 lg:px-14 lg:py-20 max-w-[100rem] mx-auto relative">
+            <div className="absolute inset-y-0 right-0 w-1/3 bg-gradient-to-br from-[#F0F4FF] to-transparent pointer-events-none rounded-tl-[120px] hidden xl:block" />
+            
+            <div className="max-w-2xl mx-auto relative z-10">
               <Question>{steps[currentStep].question}</Question>
               
               <div className="transition-all duration-300 ease-out">

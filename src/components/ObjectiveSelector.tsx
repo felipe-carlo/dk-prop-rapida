@@ -30,7 +30,7 @@ interface ObjectiveSelectorProps {
 
 export const ObjectiveSelector = ({ selectedObjective, onObjectiveChange }: ObjectiveSelectorProps) => {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+    <div className="grid gap-6 sm:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5 justify-items-center">
       {objectives.map((objective) => {
         const isSelected = selectedObjective === objective.id;
         const IconComponent = objective.icon;
@@ -50,7 +50,7 @@ export const ObjectiveSelector = ({ selectedObjective, onObjectiveChange }: Obje
               <span className="text-sm font-semibold text-gray-900 block">
                 {objective.label}
               </span>
-              <span className="text-xs text-gray-500 text-center leading-tight px-2">
+              <span className="text-xs text-gray-500 text-center leading-tight max-w-[9rem]">
                 {objective.description}
               </span>
             </div>
