@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ProgressCircle } from "@/components/ui/progress-circle";
@@ -255,8 +256,12 @@ export const Wizard = () => {
           {/* Sidebar - Hidden on mobile */}
           <div className="hidden md:flex w-60 bg-[#F8F9FC] flex-col items-center py-12 space-y-12">
             {/* Logo */}
-            <div className="w-16 h-16 bg-[#0066FF] rounded-2xl flex items-center justify-center">
-              <span className="text-lg font-semibold text-white">DAKI</span>
+            <div className="flex items-center justify-center">
+              <img 
+                src="/lovable-uploads/697965a5-aa40-4554-902c-20321af7ad63.png" 
+                alt="DAKI Logo" 
+                className="h-12 w-auto"
+              />
             </div>
             
             {/* Progress Circle */}

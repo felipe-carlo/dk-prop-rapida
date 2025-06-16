@@ -9,8 +9,12 @@ const Thanks = () => {
       <div className="container mx-auto px-4 max-w-2xl">
         <Card className="p-12 text-center">
           {/* Logo */}
-          <div className="w-24 h-24 bg-primary rounded-2xl flex items-center justify-center mx-auto mb-8">
-            <span className="text-2xl font-bold text-white">DAKI</span>
+          <div className="flex items-center justify-center mx-auto mb-8">
+            <img 
+              src="/lovable-uploads/697965a5-aa40-4554-902c-20321af7ad63.png" 
+              alt="DAKI Logo" 
+              className="h-16 w-auto"
+            />
           </div>
           
           {/* Success Icon */}

@@ -63,8 +63,12 @@ export default function AdminLogin() {
     <div className="min-h-screen flex items-center justify-center bg-gray-50">
       <div className="w-full max-w-sm bg-white rounded-xl shadow-lg p-8 space-y-6">
         <div className="text-center">
-          <div className="w-16 h-16 bg-[#0066FF] rounded-2xl flex items-center justify-center mx-auto mb-4">
-            <span className="text-xl font-bold text-white">DAKI</span>
+          <div className="flex items-center justify-center mx-auto mb-4">
+            <img 
+              src="/lovable-uploads/697965a5-aa40-4554-902c-20321af7ad63.png" 
+              alt="DAKI Logo" 
+              className="h-12 w-auto"
+            />
           </div>
           <h1 className="text-xl font-semibold">Login Admin</h1>
         </div>

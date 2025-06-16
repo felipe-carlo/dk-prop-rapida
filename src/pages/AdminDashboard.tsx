@@ -125,8 +125,12 @@ export default function AdminDashboard() {
       <header className="bg-white shadow-sm border-b">
         <div className="container mx-auto px-4 py-4 flex justify-between items-center">
           <div className="flex items-center space-x-4">
-            <div className="w-10 h-10 bg-[#0066FF] rounded-xl flex items-center justify-center">
-              <span className="text-sm font-bold text-white">DAKI</span>
+            <div className="flex items-center justify-center">
+              <img 
+                src="/lovable-uploads/697965a5-aa40-4554-902c-20321af7ad63.png" 
+                alt="DAKI Logo" 
+                className="h-8 w-auto"
+              />
             </div>
             <div>
               <h1 className="text-xl font-semibold">Dashboard Admin</h1>

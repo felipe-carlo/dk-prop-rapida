@@ -31,8 +31,12 @@ const QuoteSummary = () => {
   return (
     <main className="max-w-3xl mx-auto p-8 space-y-10">
       <div className="text-center">
-        <div className="w-24 h-24 bg-primary rounded-2xl flex items-center justify-center mx-auto mb-6">
-          <span className="text-2xl font-bold text-white">DAKI</span>
+        <div className="flex items-center justify-center mx-auto mb-6">
+          <img 
+            src="/lovable-uploads/697965a5-aa40-4554-902c-20321af7ad63.png" 
+            alt="DAKI Logo" 
+            className="h-16 w-auto"
+          />
         </div>
         <h1 className="text-2xl font-bold">Recebemos sua solicitação!</h1>
         <p className="text-gray-700">Nossa equipe enviará uma proposta em até 48 h.</p>
