@@ -15,8 +15,8 @@ import {
 
 const campaignOptions = [
   {
-    id: "onsite-banners",
-    label: "Mídias no App",
+    id: "midia-no-app",
+    label: "Mídia no App",
     icon: MonitorSpeaker
   },
   {
