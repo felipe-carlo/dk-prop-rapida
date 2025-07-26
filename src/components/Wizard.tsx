@@ -202,8 +202,8 @@ export const Wizard = () => {
           campaign_options: formData.campaign_options,
           budget: formData.budget,
           main_objective: formData.main_objective,
-          start_date: formData.start_date ? formData.start_date.toISOString().split('T')[0] : null,
-          end_date: formData.end_date ? formData.end_date.toISOString().split('T')[0] : null,
+          start_date: formData.start_month && formData.start_year ? `${formData.start_year}-${formData.start_month}-01` : null,
+          end_date: formData.end_month && formData.end_year ? `${formData.end_year}-${formData.end_month}-01` : null,
           products: formData.products || null,
           additional_details: formData.additional_details || null,
         })
@@ -232,8 +232,8 @@ export const Wizard = () => {
             objective: formData.main_objective,
             inventory: formData.campaign_options,
             budget: formData.budget,
-            startDate: formData.start_date ? format(formData.start_date, "dd/MM/yyyy") : "",
-            endDate: formData.end_date ? format(formData.end_date, "dd/MM/yyyy") : "",
+            startDate: formData.start_month && formData.start_year ? `${formData.start_month}/${formData.start_year}` : "",
+            endDate: formData.end_month && formData.end_year ? `${formData.end_month}/${formData.end_year}` : "",
             notes: formData.additional_details
           }
         }
