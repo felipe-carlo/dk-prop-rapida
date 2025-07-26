@@ -2,25 +2,17 @@
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 interface PeriodStepProps {
-  startMonth: string;
-  startYear: string;
-  endMonth: string;
-  endYear: string;
-  onStartMonthChange: (month: string) => void;
-  onStartYearChange: (year: string) => void;
-  onEndMonthChange: (month: string) => void;
-  onEndYearChange: (year: string) => void;
+  month: string;
+  year: string;
+  onMonthChange: (month: string) => void;
+  onYearChange: (year: string) => void;
 }
 
 export const PeriodStep = ({
-  startMonth,
-  startYear,
-  endMonth,
-  endYear,
-  onStartMonthChange,
-  onStartYearChange,
-  onEndMonthChange,
-  onEndYearChange
+  month,
+  year,
+  onMonthChange,
+  onYearChange
 }: PeriodStepProps) => {
   const months = [
     { value: "01", label: "Janeiro" },
@@ -45,10 +37,10 @@ export const PeriodStep = ({
       <div className="grid gap-6 w-full">
         <div>
           <label className="text-base text-gray-800 font-inter font-medium block mb-2">
-            Período de início
+            Período
           </label>
           <div className="grid grid-cols-2 gap-3">
-            <Select value={startMonth} onValueChange={onStartMonthChange}>
+            <Select value={month} onValueChange={onMonthChange}>
               <SelectTrigger className="h-12">
                 <SelectValue placeholder="Mês" />
               </SelectTrigger>
@@ -60,39 +52,7 @@ export const PeriodStep = ({
                 ))}
               </SelectContent>
             </Select>
-            <Select value={startYear} onValueChange={onStartYearChange}>
-              <SelectTrigger className="h-12">
-                <SelectValue placeholder="Ano" />
-              </SelectTrigger>
-              <SelectContent>
-                {years.map((year) => (
-                  <SelectItem key={year} value={year.toString()}>
-                    {year}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
-        </div>
-        
-        <div>
-          <label className="text-base text-gray-800 font-inter font-medium block mb-2">
-            Período de término
-          </label>
-          <div className="grid grid-cols-2 gap-3">
-            <Select value={endMonth} onValueChange={onEndMonthChange}>
-              <SelectTrigger className="h-12">
-                <SelectValue placeholder="Mês" />
-              </SelectTrigger>
-              <SelectContent>
-                {months.map((month) => (
-                  <SelectItem key={month.value} value={month.value}>
-                    {month.label}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-            <Select value={endYear} onValueChange={onEndYearChange}>
+            <Select value={year} onValueChange={onYearChange}>
               <SelectTrigger className="h-12">
                 <SelectValue placeholder="Ano" />
               </SelectTrigger>

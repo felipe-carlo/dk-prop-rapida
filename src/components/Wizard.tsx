@@ -22,10 +22,8 @@ export type QuoteRequest = {
   campaign_options: string[];
   budget: number;
   main_objective: string;
-  start_month: string;
-  start_year: string;
-  end_month: string;
-  end_year: string;
+  period_month: string;
+  period_year: string;
   products: string;
   additional_details: string;
 };
@@ -41,10 +39,8 @@ export const Wizard = () => {
     campaign_options: [],
     budget: 50000,
     main_objective: "",
-    start_month: "",
-    start_year: "",
-    end_month: "",
-    end_year: "",
+    period_month: "",
+    period_year: "",
     products: "",
     additional_details: "",
   });
@@ -95,21 +91,13 @@ export const Wizard = () => {
       question: "Qual o período da campanha?",
       component: (
         <PeriodStep
-          startMonth={formData.start_month}
-          startYear={formData.start_year}
-          endMonth={formData.end_month}
-          endYear={formData.end_year}
-          onStartMonthChange={(month) => 
-            setFormData({ ...formData, start_month: month })
+          month={formData.period_month}
+          year={formData.period_year}
+          onMonthChange={(month) => 
+            setFormData({ ...formData, period_month: month })
           }
-          onStartYearChange={(year) => 
-            setFormData({ ...formData, start_year: year })
-          }
-          onEndMonthChange={(month) => 
-            setFormData({ ...formData, end_month: month })
-          }
-          onEndYearChange={(year) => 
-            setFormData({ ...formData, end_year: year })
+          onYearChange={(year) => 
+            setFormData({ ...formData, period_year: year })
           }
         />
       )
@@ -202,8 +190,8 @@ export const Wizard = () => {
           campaign_options: formData.campaign_options,
           budget: formData.budget,
           main_objective: formData.main_objective,
-          start_date: formData.start_month && formData.start_year ? `${formData.start_year}-${formData.start_month}-01` : null,
-          end_date: formData.end_month && formData.end_year ? `${formData.end_year}-${formData.end_month}-01` : null,
+          start_date: formData.period_month && formData.period_year ? `${formData.period_year}-${formData.period_month}-01` : null,
+          end_date: formData.period_month && formData.period_year ? `${formData.period_year}-${formData.period_month}-01` : null,
           products: formData.products || null,
           additional_details: formData.additional_details || null,
         })
@@ -232,8 +220,8 @@ export const Wizard = () => {
             objective: formData.main_objective,
             inventory: formData.campaign_options,
             budget: formData.budget,
-            startDate: formData.start_month && formData.start_year ? `${formData.start_month}/${formData.start_year}` : "",
-            endDate: formData.end_month && formData.end_year ? `${formData.end_month}/${formData.end_year}` : "",
+            startDate: formData.period_month && formData.period_year ? `${formData.period_month}/${formData.period_year}` : "",
+            endDate: formData.period_month && formData.period_year ? `${formData.period_month}/${formData.period_year}` : "",
             notes: formData.additional_details
           }
         }
