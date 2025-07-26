@@ -22,8 +22,10 @@ export type QuoteRequest = {
   campaign_options: string[];
   budget: number;
   main_objective: string;
-  start_date: Date | null;
-  end_date: Date | null;
+  start_month: string;
+  start_year: string;
+  end_month: string;
+  end_year: string;
   products: string;
   additional_details: string;
 };
@@ -39,8 +41,10 @@ export const Wizard = () => {
     campaign_options: [],
     budget: 50000,
     main_objective: "",
-    start_date: null,
-    end_date: null,
+    start_month: "",
+    start_year: "",
+    end_month: "",
+    end_year: "",
     products: "",
     additional_details: "",
   });
@@ -91,13 +95,21 @@ export const Wizard = () => {
       question: "Qual o período da campanha?",
       component: (
         <PeriodStep
-          startDate={formData.start_date}
-          endDate={formData.end_date}
-          onStartDateChange={(date) => 
-            setFormData({ ...formData, start_date: date })
+          startMonth={formData.start_month}
+          startYear={formData.start_year}
+          endMonth={formData.end_month}
+          endYear={formData.end_year}
+          onStartMonthChange={(month) => 
+            setFormData({ ...formData, start_month: month })
           }
-          onEndDateChange={(date) => 
-            setFormData({ ...formData, end_date: date })
+          onStartYearChange={(year) => 
+            setFormData({ ...formData, start_year: year })
+          }
+          onEndMonthChange={(month) => 
+            setFormData({ ...formData, end_month: month })
+          }
+          onEndYearChange={(year) => 
+            setFormData({ ...formData, end_year: year })
           }
         />
       )
